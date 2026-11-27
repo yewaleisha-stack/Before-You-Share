@@ -23,6 +23,9 @@ const csp = (): Plugin => ({
 export default defineConfig({
   base: './',
   plugins: [csp()],
-  build: { target: 'es2022' },
+  build: {
+    target: 'es2022',
+    rollupOptions: { input: { main: 'index.html', welcome: 'welcome.html' } },
+  },
   test: { include: ['tests/**/*.test.ts'] },
 } as Parameters<typeof defineConfig>[0]);

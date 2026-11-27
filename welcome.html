@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Before You Share redacts emails, phone numbers, IPs, PAN, Aadhaar and card numbers in your browser, and shows you every removal before you send a ticket, log or CSV." />
+    <meta name="color-scheme" content="light dark" />
+    <title>Before You Share — share the ticket, not the customer</title>
+    <!-- Google Fonts (OFL). Only font files are requested; no document content is sent. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+  </head>
+  <body class="landing">
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!-- ============ Navigation ============ -->
+    <header class="l-nav" id="nav">
+      <a class="brand" href="#top" aria-label="Before You Share, back to top">
+        <span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="wordmark">Before You Share</span>
+      </a>
+      <nav class="l-links" aria-label="Sections">
+        <a href="#features">Features</a>
+        <a href="#demo">Live demo</a>
+        <a href="#modes">Modes</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-accent l-nav-cta" href="./index.html" data-app-link>
+        <span>Open the app</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10 M11 6l4 4-4 4" /></svg>
+      </a>
+    </header>
+
+    <main id="main">
+      <!-- ============ Hero ============ -->
+      <section class="l-hero" id="top">
+        <div class="l-hero-copy">
+          <p class="kicker reveal"><span class="kicker-dot" aria-hidden="true"></span>Built for support and ops teams in India</p>
+          <h1 class="l-title reveal">Share the ticket.<br /><span class="l-title-soft">Not the customer.</span></h1>
+          <p class="l-lede reveal">
+            Before You Share redacts emails, phone numbers, IPs, PAN, Aadhaar and card numbers <strong>in your browser</strong>,
+            and shows you each removal and what replaces it before you send a ticket, log or CSV.
+          </p>
+          <div class="l-cta reveal">
+            <a class="btn btn-accent btn-lg" href="./index.html" data-app-link>
+              <span>Open Before You Share</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10 M11 6l4 4-4 4" /></svg>
+            </a>
+            <a class="btn btn-soft btn-lg" href="#demo">Try a line first</a>
+          </div>
+          <ul class="l-trust reveal" aria-label="Highlights">
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10l4 4 8-8" /></svg>No sign-up</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10l4 4 8-8" /></svg>No upload</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10l4 4 8-8" /></svg>Works offline</li>
+          </ul>
+        </div>
+
+        <!-- 3D scene: a ticket that redacts itself -->
+        <div class="scene" id="scene" role="img" aria-label="A support ticket in 3D. A scanning light passes over it and each email, phone, PAN, card, Aadhaar and IP value is covered by a replacement such as EMAIL_01.">
+          <div class="ground" id="ground" aria-hidden="true"></div>
+          <div class="rig" id="rig" aria-hidden="true">
+            <div class="paper p-back"></div>
+            <div class="paper p-mid"></div>
+            <div class="paper p-front">
+              <div class="p-head">
+                <span class="p-dots"><i></i><i></i><i></i></span>
+                <span class="p-file">ticket-48213.txt</span>
+                <span class="p-pill">14 to replace</span>
+              </div>
+              <div class="p-body">
+                <p><span class="k">From</span> Ananya Rao &lt;<span class="pii t-email d0" data-out="EMAIL_01">ananya.rao@example.com</span>&gt;</p>
+                <p><span class="k">Phone</span> <span class="pii t-phone d1" data-out="PHONE_01">+91 98765 43210</span></p>
+                <p><span class="k">PAN</span> <span class="pii t-pan d2" data-out="PAN_01">ABCPE1234F</span></p>
+                <p><span class="k">Card</span> <span class="pii t-card d3" data-out="CARD_01">4111 1111 1111 1111</span></p>
+                <p><span class="k">Aadhaar</span> <span class="pii t-aadhaar d4" data-out="AADHAAR_01">2345 6789 0123</span></p>
+                <p><span class="k">Login IP</span> <span class="pii t-ip d5" data-out="IP_01">203.0.113.42</span></p>
+                <p class="p-skip"><span class="k">Order</span> 4111 1111 1111 1112 <span class="p-not">NOT CARD</span></p>
+                <p class="p-skip"><span class="k">Note</span> “Charged twice, please call back.”</p>
+                <p class="p-skip"><span class="k">Status</span> escalated → payment vendor</p>
+              </div>
+              <div class="scan"></div>
+              <div class="sheen"></div>
+            </div>
+            <div class="peb peb1"><b class="t-email">EML</b></div>
+            <div class="peb peb2"><b class="t-phone">PHN</b></div>
+            <div class="peb peb3"><b class="t-card">CARD</b></div>
+            <div class="peb peb4"><b class="t-aadhaar">AAD</b></div>
+            <div class="peb peb5"><b class="t-ip">IP</b></div>
+            <div class="peb peb6"><b class="t-pan">PAN</b></div>
+            <div class="badge3d"><span class="seal-dot"></span><span data-net-mirror-text>0 requests since load</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Stats ============ -->
+      <section class="l-stats" aria-label="At a glance">
+        <div class="stat reveal"><p class="stat-n" data-count="6">6</p><p class="stat-l">identifier types</p></div>
+        <div class="stat reveal"><p class="stat-n" data-count="3">3</p><p class="stat-l">redaction modes</p></div>
+        <div class="stat reveal"><p class="stat-n" data-count="141">141</p><p class="stat-l">automated checks passing</p></div>
+        <div class="stat reveal"><p class="stat-n"><span data-net-mirror>0</span></p><p class="stat-l">network requests since load</p></div>
+      </section>
+
+      <!-- ============ Problem ============ -->
+      <section class="l-band" aria-labelledby="why-h">
+        <div class="l-split">
+          <header class="l-head reveal">
+            <p class="eyebrow-l">Why it exists</p>
+            <h2 id="why-h">Every escalation leaks a little.</h2>
+            <p>A payment-failure ticket goes to an outside vendor with a log excerpt attached. Somewhere in it are a card number, a phone, an Aadhaar. Find-and-replace misses one; a blind redactor hides the one thing the vendor needed.</p>
+          </header>
+          <ol class="l-pains">
+            <li class="pain reveal"><span class="pain-n">01</span><div><h3>Manual redaction misses things</h3><p>The same address written in two cases, a phone with and without +91 — one slips through.</p></div></li>
+            <li class="pain reveal"><span class="pain-n">02</span><div><h3>Blind tools over-redact</h3><p>Everything becomes ****, so the vendor can't tell one customer from another.</p></div></li>
+            <li class="pain reveal"><span class="pain-n">03</span><div><h3>Online scrubbers upload your data</h3><p>Pasting a customer's details into a web service to protect them defeats the point.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ Features ============ -->
+      <section class="l-band" id="features" aria-labelledby="features-h">
+        <header class="l-head l-center reveal">
+          <p class="eyebrow-l">Features</p>
+          <h2 id="features-h">Precise, transparent, private.</h2>
+          <p>Everything happens on your device, and nothing happens without you seeing it.</p>
+        </header>
+        <div class="l-cards">
+          <article class="tilt reveal"><div class="tilt-in">
+            <span class="card-icon t-email" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 5h14v10H3z M3 5l7 6 7-6" /></svg></span>
+            <h3>Six identifiers, exactly</h3>
+            <p>Email, phone (India-first + international), IPv4/IPv6, PAN, Aadhaar and Luhn-validated card numbers.</p>
+          </div><span class="glare" aria-hidden="true"></span></article>
+          <article class="tilt reveal"><div class="tilt-in">
+            <span class="card-icon t-phone" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M7 7h-3v9h9v-3 M9 4h7v7H9z" /></svg></span>
+            <h3>Linked review</h3>
+            <p>Select any highlight and its replacement lights up on the other side: “Card 1 of 2 · item 5 of 14”.</p>
+          </div><span class="glare" aria-hidden="true"></span></article>
+          <article class="tilt reveal"><div class="tilt-in">
+            <span class="card-icon t-ip" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 6h12 M4 10h8 M4 14h10" /></svg></span>
+            <h3>Consistent pseudonyms</h3>
+            <p><code>EMAIL_01</code> stays the same person through the whole file, even when written differently.</p>
+          </div><span class="glare" aria-hidden="true"></span></article>
+          <article class="tilt reveal"><div class="tilt-in">
+            <span class="card-icon t-card" aria-hidden="true"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="6.5" /><path d="M10 7v3.5 M10 13h.01" /></svg></span>
+            <h3>Honest about skips</h3>
+            <p>A card-shaped number that fails Luhn is marked <em>NOT CARD</em> and reported — never silently ignored.</p>
+          </div><span class="glare" aria-hidden="true"></span></article>
+          <article class="tilt reveal"><div class="tilt-in">
+            <span class="card-icon t-pan" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 4h12v12H4z M4 8h12 M4 12h12 M8 4v12" /></svg></span>
+            <h3>CSV stays intact</h3>
+            <p>Only matched values change. Headers, quotes, CRLF, leading zeros and the BOM pass through untouched.</p>
+          </div><span class="glare" aria-hidden="true"></span></article>
+          <article class="tilt reveal"><div class="tilt-in">
+            <span class="card-icon t-aadhaar" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 3l6 2.5v4.5c0 3.5-2.6 6-6 7-3.4-1-6-3.5-6-7V5.5z" /></svg></span>
+            <h3>Nothing leaves the tab</h3>
+            <p>No uploads, no analytics, no cloud AI, and a Content-Security-Policy with <code>connect-src 'none'</code>.</p>
+          </div><span class="glare" aria-hidden="true"></span></article>
+        </div>
+      </section>
+
+      <!-- ============ Live demo (real engine) ============ -->
+      <section class="l-band" id="demo" aria-labelledby="demo-h">
+        <header class="l-head l-center reveal">
+          <p class="eyebrow-l">Live demo</p>
+          <h2 id="demo-h">Type anything. Watch it redact.</h2>
+          <p>This box runs the same detection engine as the app, right here in your browser.</p>
+        </header>
+        <div class="demo reveal">
+          <div class="demo-bar">
+            <fieldset class="segmented">
+              <legend class="sr-only">Demo mode</legend>
+              <label><input type="radio" name="dmode" value="full" /><span>Full mask</span></label>
+              <label><input type="radio" name="dmode" value="partial" /><span>Partial mask</span></label>
+              <label><input type="radio" name="dmode" value="pseudo" checked /><span>Pseudonymize</span></label>
+            </fieldset>
+            <p class="demo-count" id="demo-count" aria-live="polite"></p>
+          </div>
+          <div class="demo-grid">
+            <div class="demo-pane">
+              <label class="demo-label" for="demo-in">Your text</label>
+              <textarea id="demo-in" class="demo-in" spellcheck="false" rows="5">Hi, I'm ravi.k@example.com — call +91 98765 43210 or 09876543210. Card 4111 1111 1111 1111 failed from 198.51.100.7, PAN ABCPE1234F.</textarea>
+            </div>
+            <div class="demo-pane">
+              <p class="demo-label" id="demo-out-l">What gets shared</p>
+              <div id="demo-out" class="demo-out sheet-result" data-mode="pseudo" aria-labelledby="demo-out-l"></div>
+            </div>
+          </div>
+          <div class="demo-foot">
+            <p>Want highlights, keyboard review and file downloads?</p>
+            <a class="btn btn-accent" href="./index.html" data-app-link><span>Open the full app</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10 M11 6l4 4-4 4" /></svg></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Modes prism ============ -->
+      <section class="l-band" id="modes" aria-labelledby="modes-h">
+        <div class="l-split l-split-rev">
+          <header class="l-head reveal">
+            <p class="eyebrow-l">Three modes</p>
+            <h2 id="modes-h">One line, three ways to share it.</h2>
+            <p>Pick how much the reader keeps. Switching modes never changes what was found.</p>
+            <div class="mode-tabs" role="tablist" aria-label="Choose a mode">
+              <button class="mode-tab" role="tab" aria-selected="true" data-face="0" type="button"><b>Full mask</b><span>Every match becomes [REDACTED].</span></button>
+              <button class="mode-tab" role="tab" aria-selected="false" data-face="1" type="button"><b>Partial mask</b><span>Keeps the last 4 digits, first IP octets, or the email domain.</span></button>
+              <button class="mode-tab" role="tab" aria-selected="false" data-face="2" type="button"><b>Pseudonymize</b><span>Repeated values share one alias, e.g. EMAIL_01.</span></button>
+            </div>
+          </header>
+          <div class="prism-stage reveal" aria-live="polite">
+            <div class="prism" id="prism">
+              <div class="face face0"><p class="face-t">Full mask</p><p class="face-l">From <mark class="m t-email bar">[REDACTED]</mark></p><p class="face-l">Card <mark class="m t-card bar">[REDACTED]</mark></p><p class="face-l">Phone <mark class="m t-phone bar">[REDACTED]</mark></p></div>
+              <div class="face face1"><p class="face-t">Partial mask</p><p class="face-l">From <mark class="m t-email">a***@example.com</mark></p><p class="face-l">Card <mark class="m t-card">XXXX XXXX XXXX 1111</mark></p><p class="face-l">Phone <mark class="m t-phone">+91 XXXXX X3210</mark></p></div>
+              <div class="face face2"><p class="face-t">Pseudonymize</p><p class="face-l">From <mark class="m t-email"><b>EMAIL_01</b></mark></p><p class="face-l">Card <mark class="m t-card"><b>CARD_01</b></mark></p><p class="face-l">Phone <mark class="m t-phone"><b>PHONE_01</b></mark></p></div>
+            </div>
+            <div class="prism-shadow" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ How it works ============ -->
+      <section class="l-band" id="how" aria-labelledby="how-h">
+        <header class="l-head l-center reveal">
+          <p class="eyebrow-l">How it works</p>
+          <h2 id="how-h">Paste. Review. Share.</h2>
+        </header>
+        <ol class="l-steps" id="steps">
+          <li class="l-step reveal"><span class="l-step-n">1</span><h3>Paste or upload</h3><p>A ticket, a log excerpt, or a .txt / .csv up to 1 MB.</p></li>
+          <li class="l-step reveal"><span class="l-step-n">2</span><h3>Review every highlight</h3><p>Step through each item with Next or ↓ and see exactly what replaces it.</p></li>
+          <li class="l-step reveal"><span class="l-step-n">3</span><h3>Download the clean copy</h3><p>The file matches the result byte for byte. Send it with confidence.</p></li>
+        </ol>
+      </section>
+
+      <!-- ============ Privacy proof ============ -->
+      <section class="l-band" id="privacy" aria-labelledby="privacy-h">
+        <div class="vault reveal">
+          <div class="vault-copy">
+            <p class="eyebrow-l">Privacy you can verify</p>
+            <h2 id="privacy-h">Don’t trust us. Check.</h2>
+            <p>Open your browser’s DevTools → Network, clear it, and use the app. The list stays empty. Turn off Wi-Fi and it keeps working.</p>
+            <ul class="vault-list">
+              <li><b data-net-mirror>0</b><span>network requests since this page loaded, counted live</span></li>
+              <li><b class="mono">connect-src 'none'</b><span>Content-Security-Policy blocks every outbound connection</span></li>
+              <li><b>0</b><span>runtime dependencies, analytics scripts or cookies</span></li>
+            </ul>
+          </div>
+          <div class="lock" aria-hidden="true">
+            <div class="lock-ring r1"></div><div class="lock-ring r2"></div><div class="lock-ring r3"></div>
+            <div class="lock-core"><svg viewBox="0 0 20 20"><path d="M6 9V7a4 4 0 0 1 8 0v2 M5 9h10v8H5z M10 12v2" /></svg></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FAQ ============ -->
+      <section class="l-band" id="faq" aria-labelledby="faq-h">
+        <header class="l-head l-center reveal">
+          <p class="eyebrow-l">FAQ</p>
+          <h2 id="faq-h">Questions, answered plainly.</h2>
+        </header>
+        <div class="faq">
+          <details class="reveal"><summary>Does my text ever leave my computer?</summary><p>No. Detection and redaction run in the page. The production build’s Content-Security-Policy forbids outbound connections, and the app works offline once loaded.</p></details>
+          <details class="reveal"><summary>What exactly does it detect?</summary><p>Six types: email, phone (Indian mobiles plus + international numbers), IPv4 and IPv6, PAN, Aadhaar and payment cards. It does not detect names or addresses.</p></details>
+          <details class="reveal"><summary>Is Aadhaar validated?</summary><p>It’s a format match (12 digits, first digit 2–9, consistent grouping). The Verhoeff checksum isn’t applied yet, so it errs on the side of redacting more.</p></details>
+          <details class="reveal"><summary>Will my CSV still open in Excel?</summary><p>Yes. Only matched values are replaced; delimiters, quoting, line endings, leading zeros and the UTF-8 BOM are preserved.</p></details>
+          <details class="reveal"><summary>Does it use AI?</summary><p>The redaction uses no AI. In Chrome, an optional button can summarize the already-sanitized result with on-device Gemini Nano — still nothing leaves your machine.</p></details>
+        </div>
+      </section>
+
+      <!-- ============ Final CTA ============ -->
+      <section class="l-final" aria-labelledby="final-h">
+        <div class="final-card reveal">
+          <div class="final-stack" aria-hidden="true"><i></i><i></i><i></i></div>
+          <h2 id="final-h">Ready to share with peace of mind?</h2>
+          <p>Load the synthetic sample ticket and see all 14 replacements in seconds.</p>
+          <a class="btn btn-accent btn-lg" href="./index.html" data-app-link>
+            <span>Open Before You Share</span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10 M11 6l4 4-4 4" /></svg>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="l-foot">
+      <div class="brand"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span><span class="wordmark">Before You Share</span></div>
+      <p>Built for PromptWars × NIAT Pune · Google for Developers · H2S.</p>
+      <p>Hosting on Firebase or Google Cloud Run · Fonts by Google Fonts (OFL) · All sample data is synthetic.</p>
+    </footer>
+
+    <script type="module" src="/src/landing/landing.ts"></script>
+  </body>
+</html>
