@@ -8,6 +8,7 @@ Built for **PromptWars × NIAT Pune** (Google for Developers · H2S).
 
 - **Three modes.** Full mask (`[REDACTED]`), Partial mask (last 4 digits, email domain, first IP octets), and Pseudonymize (`EMAIL_01`, where repeated values share one alias).
 - **Linked review.** Select any highlight in either pane and its counterpart is outlined in the other, linked by match ID rather than character offset. Keyboard: focus a pane, then use ↓/↑ (or J/K), Home/End and Esc.
+- **Live privacy seal.** The header counts network requests made after load, using the browser's own resource timing (web-font files excluded). It stays at 0 while you work.
 - **Shows what it left alone.** A card-shaped number that fails the Luhn check is marked "NOT CARD" and reported in the status line.
 - **CSV-safe.** Replacements are made in the raw text, so headers, quoting, CRLF line endings, leading zeros and a BOM all come through unchanged.
 
@@ -27,7 +28,7 @@ npm run test:e2e   # browser acceptance checks (needs: npx playwright install ch
 |---|---|---|
 | **Firebase Hosting** (`firebase.json`) | Static hosting with CSP and security headers | Serves files only |
 | **Google Cloud Run** (`Dockerfile`, `nginx.conf`) | Alternative container deploy: `npm run deploy:cloudrun` | Serves files only |
-| **Google Fonts** | IBM Plex Sans / Mono | Font files only; falls back to system fonts offline |
+| **Google Fonts** | Instrument Sans / JetBrains Mono | Font files only; falls back to system fonts offline |
 | **Chrome built-in AI: Summarizer API (Gemini Nano)** | Optional "Summarize sanitized text on this device" | Runs on-device. Receives only the *sanitized* result. Hidden when the browser doesn't support it |
 | **GitHub Action → Firebase Hosting** | CI: test, build, deploy | — |
 
@@ -78,8 +79,9 @@ They cover T1, T2, T16–T19, T21–T26, plus a 375 px layout check.
 ## Measured
 
 - **1 MB input**, from paste to the review render in headless Chromium: about **0.3 s** for a realistic log (1,950 matches) and about **2.4 s** for a worst case with a match every ~25 characters (40,539 matches). The detection engine alone takes ~0.17 s; the rest is DOM rendering. The 1 MB limit stays.
-- **Contrast:** each entity's strong color on white is 5.2–7.1:1, and body text on a tint is ≥ 13.7:1 (WCAG AA needs 4.5:1).
+- **Contrast (light / dark):** entity colors 5.5–6.9:1 / 7.7–10.1:1; text on highlight tints ≥ 15.5:1 / ≥ 11.5:1; the Download button 5.4:1; muted text ≥ 4.9:1 (WCAG AA needs 4.5:1).
+- **Light and dark themes** follow the system setting.
 
 ## Licences
 
-The IBM Plex fonts are licensed under the SIL Open Font License 1.1 and served by Google Fonts.
+Instrument Sans and JetBrains Mono are licensed under the SIL Open Font License 1.1 and served by Google Fonts.

@@ -4,72 +4,111 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Redact emails, phone numbers, IPs, PAN, Aadhaar and card numbers in your browser before you share a ticket, log or CSV." />
-    <meta name="theme-color" content="#F5F5F2" />
-    <title>Before You Share — redact before you send</title>
-    <!-- Google Fonts: IBM Plex (OFL). Only font files are requested; no document content is sent. Falls back to system fonts offline. -->
+    <meta name="color-scheme" content="light dark" />
+    <title>Before You Share</title>
+    <!-- Google Fonts (OFL). Only font files are requested; no document content is sent. Falls back to system fonts offline. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
   </head>
   <body>
     <a class="skip" href="#src-view">Skip to review</a>
-    <header class="top">
-      <h1 class="wordmark">Before You Share</h1>
-      <p class="tagline">See what will be removed before you share.</p>
-      <p class="privacy">Runs in this tab. Nothing is uploaded.</p>
+
+    <header class="masthead">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>
+        <h1 class="wordmark">Before You Share</h1>
+        <p class="tagline">See what will be removed before you share.</p>
+      </div>
+      <p class="seal" id="seal" title="Counted live from the browser's resource timing since the page finished loading (web-font files excluded).">
+        <span class="seal-dot" aria-hidden="true"></span>
+        <span>Runs in this tab. Nothing is uploaded.</span>
+        <span class="seal-count" id="net-count">0 requests since load</span>
+      </p>
     </header>
 
-    <section class="counts" aria-label="Detection summary">
-      <p id="total" class="total">No text yet.</p>
-      <ul id="chips" class="chips"></ul>
+    <section class="summary" aria-label="Detection summary">
+      <div class="tally">
+        <p id="total" class="total">No text yet.</p>
+        <ul id="chips" class="chips"></ul>
+      </div>
       <div id="status" class="status" role="status" aria-live="polite"></div>
     </section>
 
-    <main class="workspace">
-      <section class="pane" aria-labelledby="src-h">
-        <div class="pane-head">
-          <h2 id="src-h" class="pane-title">Source · <span id="src-title">No file</span></h2>
-          <div class="actions">
-            <button id="btn-sample" class="primary" type="button">Load sample</button>
-            <button id="btn-upload" type="button">Upload .txt or .csv</button>
-            <input id="file" type="file" accept=".txt,.csv,text/plain,text/csv" hidden />
-            <button id="btn-edit" type="button">Done editing</button>
-            <button id="btn-clear" type="button">Clear</button>
+    <main class="desk">
+      <section class="sheet" aria-labelledby="src-h">
+        <header class="sheet-head">
+          <div class="sheet-title">
+            <h2 id="src-h" class="eyebrow">Source</h2>
+            <p class="filename"><span id="src-title">No file</span></p>
           </div>
-        </div>
+          <div class="toolbar">
+            <button id="btn-sample" class="btn btn-primary" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h7l3 3v11H5z M12 3v3h3 M8 10h5 M8 13h5" /></svg>
+              <span>Load sample</span>
+            </button>
+            <button id="btn-upload" class="btn" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V4 M6 8l4-4 4 4 M4 13v3h12v-3" /></svg>
+              <span>Upload .txt or .csv</span>
+            </button>
+            <input id="file" type="file" accept=".txt,.csv,text/plain,text/csv" hidden />
+            <button id="btn-edit" class="btn" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16l1-4 8-8 3 3-8 8z M11 6l3 3" /></svg>
+              <span class="lbl">Done editing</span>
+            </button>
+            <button id="btn-clear" class="btn btn-quiet" type="button">
+              <span>Clear</span>
+            </button>
+          </div>
+        </header>
         <label for="editor" class="sr-only">Source text</label>
         <textarea id="editor" class="doc" spellcheck="false" placeholder="Paste text here, or upload a .txt or .csv file."></textarea>
         <div id="src-view" class="doc view" role="region" tabindex="0" aria-label="Source text with highlighted items. Use arrow keys to move between items." hidden></div>
       </section>
 
-      <section class="pane" aria-labelledby="out-h">
-        <div class="pane-head">
-          <h2 id="out-h" class="pane-title">Result</h2>
-          <div class="result-controls">
-            <fieldset class="modes">
-              <legend class="sr-only">Redaction mode</legend>
-              <label><input type="radio" name="mode" value="full" checked /> Full mask</label>
-              <label><input type="radio" name="mode" value="partial" /> Partial mask</label>
-              <label><input type="radio" name="mode" value="pseudo" /> Pseudonymize</label>
-            </fieldset>
-            <button id="btn-download" class="primary download" type="button" aria-describedby="dl-hint" disabled>Download sanitized .txt</button>
+      <section class="sheet sheet-result" aria-labelledby="out-h">
+        <header class="sheet-head">
+          <div class="sheet-title">
+            <h2 id="out-h" class="eyebrow">Result</h2>
+            <p id="mode-help" class="mode-help"></p>
           </div>
-          <p id="mode-help" class="help"></p>
-          <p id="dl-hint" class="help">Add text to enable download.</p>
-        </div>
+          <div class="toolbar">
+            <fieldset class="segmented">
+              <legend class="sr-only">Redaction mode</legend>
+              <label><input type="radio" name="mode" value="full" checked /><span>Full mask</span></label>
+              <label><input type="radio" name="mode" value="partial" /><span>Partial mask</span></label>
+              <label><input type="radio" name="mode" value="pseudo" /><span>Pseudonymize</span></label>
+            </fieldset>
+            <button id="btn-download" class="btn btn-accent download" type="button" aria-describedby="dl-hint" disabled>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v9 M6 9l4 4 4-4 M4 16h12" /></svg>
+              <span class="lbl">Download sanitized .txt</span>
+            </button>
+          </div>
+          <p id="dl-hint" class="hint">Add text to enable download.</p>
+        </header>
         <div id="out-view" class="doc view" role="region" tabindex="0" aria-label="Sanitized result. Use arrow keys to move between items."></div>
-        <div id="ai-box" class="ai" hidden>
-          <button id="btn-ai" type="button">Summarize sanitized text on this device</button>
-          <span class="help">Chrome built-in AI (Gemini Nano). Runs locally; only the sanitized result is used.</span>
-          <p id="ai-out" class="ai-out" aria-live="polite"></p>
+        <div id="ai-box" class="assist" hidden>
+          <button id="btn-ai" class="btn" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3l1.6 4.4L16 9l-4.4 1.6L10 15l-1.6-4.4L4 9l4.4-1.6z" /></svg>
+            <span>Summarize sanitized text on this device</span>
+          </button>
+          <p class="hint">Chrome built-in AI (Gemini Nano). Runs locally; only the sanitized result is used.</p>
+          <p id="ai-out" class="assist-out" aria-live="polite"></p>
         </div>
       </section>
     </main>
 
-    <nav class="review" aria-label="Review">
-      <button id="btn-prev" type="button" disabled>◀ Previous</button>
-      <button id="btn-next" type="button" disabled>Next ▶</button>
+    <nav class="dock" aria-label="Review">
+      <div class="stepper">
+        <button id="btn-prev" class="btn btn-icon" type="button" aria-label="Previous item" disabled>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 5l-5 5 5 5" /></svg><span class="lbl-wide">Previous</span>
+        </button>
+        <button id="btn-next" class="btn btn-icon" type="button" aria-label="Next item" disabled>
+          <span class="lbl-wide">Next</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8 5l5 5-5 5" /></svg>
+        </button>
+      </div>
       <p id="readout" class="readout"></p>
+      <p class="keys" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> move <kbd>Esc</kbd> clear</p>
     </nav>
     <div id="live" class="sr-only" aria-live="polite"></div>
 

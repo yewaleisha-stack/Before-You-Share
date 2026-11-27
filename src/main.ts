@@ -31,6 +31,10 @@ const els = {
   live: $('live'),
 };
 
+const resultSheet = document.querySelector('.sheet-result') as HTMLElement;
+const editLabel = els.edit.querySelector('.lbl') as HTMLElement;
+const dlLabel = els.dl.querySelector('.lbl') as HTMLElement;
+
 const MODE_HELP: Record<Mode, string> = {
   full: 'Every match becomes [REDACTED].',
   partial: 'Keeps the last 4 digits, first IP octets, or the email domain.',
@@ -127,11 +131,12 @@ function render() {
   els.srcTitle.textContent = `${state.name ?? (hasText ? 'Pasted text' : 'No file')} · ${state.editing ? 'Editing' : 'Review'}`;
   els.editor.hidden = !state.editing;
   els.srcView.hidden = state.editing;
-  els.edit.textContent = state.editing ? 'Done editing' : 'Edit text';
+  editLabel.textContent = state.editing ? 'Done editing' : 'Edit text';
   els.edit.disabled = state.editing && !hasText;
   if (!state.editing) els.srcView.replaceChildren(renderPane(state.text, state.result.segments, 'source'));
 
   // Result pane
+  resultSheet.dataset.mode = state.mode;
   if (hasText) els.outView.replaceChildren(renderPane(state.text, state.result.segments, 'result'));
   else {
     const p = document.createElement('p');
@@ -142,7 +147,7 @@ function render() {
 
   // Download
   els.dl.disabled = !hasText;
-  els.dl.textContent = !hasText
+  dlLabel.textContent = !hasText
     ? `Download sanitized .${state.ext}`
     : matches.length === 0
       ? 'Download copy (no changes)'
@@ -170,6 +175,7 @@ function applySelection(scroll: boolean) {
   const matches = state.detection.matches;
   if (id === null || !matches[id]) {
     els.readout.textContent = matches.length ? 'Select a highlighted item, or focus a pane and press ↓.' : '';
+    delete els.readout.dataset.type;
     return;
   }
   const m = matches[id];
@@ -191,6 +197,7 @@ function applySelection(scroll: boolean) {
     text += `, used ${k} time${k === 1 ? '' : 's'}`;
   }
   els.readout.textContent = text;
+  els.readout.dataset.type = m.type.toLowerCase();
   if (scroll) {
     els.live.textContent = text;
     const s = els.srcView.querySelector<HTMLElement>(`mark[data-id="${id}"]`);
@@ -339,6 +346,34 @@ els.dl.addEventListener('click', async () => {
   state.lastDownload = { mode: state.mode, name };
   render();
 });
+
+// Live privacy proof: count network requests made after the page finished loading.
+function watchNetwork() {
+  const out = document.getElementById('net-count');
+  const seal = document.getElementById('seal');
+  if (!out || !seal || typeof PerformanceObserver === 'undefined') return;
+  const since = performance.now();
+  let n = 0;
+  const show = () => {
+    out.textContent = `${n} request${n === 1 ? '' : 's'} since load`;
+    seal.classList.toggle('seal-warn', n > 0);
+  };
+  try {
+    new PerformanceObserver((list) => {
+      for (const e of list.getEntries()) {
+        // Web-font files can load lazily the first time a weight is drawn; they carry no document data.
+        const isFont = e.name.startsWith('https://fonts.gstatic.com/');
+        if (e.startTime >= since && !isFont && !e.name.startsWith('blob:') && !e.name.startsWith('data:')) n++;
+      }
+      show();
+    }).observe({ type: 'resource', buffered: false });
+  } catch {
+    return;
+  }
+  show();
+}
+if (document.readyState === 'complete') watchNetwork();
+else window.addEventListener('load', watchNetwork, { once: true });
 
 initOnDeviceSummary(() => (state.text ? state.result.output : ''));
 render();

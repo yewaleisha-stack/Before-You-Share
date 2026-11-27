@@ -141,6 +141,7 @@ check('T23 identical result', (await page.locator('#out-view').innerText()) === 
 
 // T26 no transmission after load
 check('T26 no requests after load', requests.length === 0, requests.join(', '));
+check('Privacy seal shows 0 requests', (await page.locator('#net-count').textContent()) === '0 requests since load', await page.locator('#net-count').textContent());
 check('T26 no CSP violations', cspErrors.length === 0, cspErrors.join(' | '));
 await ctx.setOffline(true);
 await page.locator('#btn-sample').click();
