@@ -1,0 +1,6 @@
+node_modules
+dist
+dist-single
+tests/.out
+tests/*.test.mjs
+dist-hosted

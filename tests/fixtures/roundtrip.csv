@@ -1,0 +1,7 @@
+id,name,email,phone,notes,amount
+007,"Rao, Ananya",ananya.rao@example.com,+91 98765 43210,"Said ""charged twice"" on call",1200.50
+008,Ravi K,ravi@example.org,09876543210,"Multi-line note:
+card 4111 1111 1111 1111 declined",0099
+009,Meera S,meera@example.net,98765-43210,"IP 203.0.113.42; PAN ABCPE1234F",15
+010,Order Bot,,,"ref 4111 1111 1111 1112, not a card",0
+011,"Desk; Pune",support@example.com,,"plain text, nothing here",7

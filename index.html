@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Redact emails, phone numbers, IPs, PAN, Aadhaar and card numbers in your browser before you share a ticket, log or CSV." />
+    <meta name="theme-color" content="#F5F5F2" />
+    <title>Before You Share — redact before you send</title>
+    <!-- Google Fonts: IBM Plex (OFL). Only font files are requested; no document content is sent. Falls back to system fonts offline. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" />
+  </head>
+  <body>
+    <a class="skip" href="#src-view">Skip to review</a>
+    <header class="top">
+      <h1 class="wordmark">Before You Share</h1>
+      <p class="tagline">See what will be removed before you share.</p>
+      <p class="privacy">Runs in this tab. Nothing is uploaded.</p>
+    </header>
+
+    <section class="counts" aria-label="Detection summary">
+      <p id="total" class="total">No text yet.</p>
+      <ul id="chips" class="chips"></ul>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <main class="workspace">
+      <section class="pane" aria-labelledby="src-h">
+        <div class="pane-head">
+          <h2 id="src-h" class="pane-title">Source · <span id="src-title">No file</span></h2>
+          <div class="actions">
+            <button id="btn-sample" class="primary" type="button">Load sample</button>
+            <button id="btn-upload" type="button">Upload .txt or .csv</button>
+            <input id="file" type="file" accept=".txt,.csv,text/plain,text/csv" hidden />
+            <button id="btn-edit" type="button">Done editing</button>
+            <button id="btn-clear" type="button">Clear</button>
+          </div>
+        </div>
+        <label for="editor" class="sr-only">Source text</label>
+        <textarea id="editor" class="doc" spellcheck="false" placeholder="Paste text here, or upload a .txt or .csv file."></textarea>
+        <div id="src-view" class="doc view" role="region" tabindex="0" aria-label="Source text with highlighted items. Use arrow keys to move between items." hidden></div>
+      </section>
+
+      <section class="pane" aria-labelledby="out-h">
+        <div class="pane-head">
+          <h2 id="out-h" class="pane-title">Result</h2>
+          <div class="result-controls">
+            <fieldset class="modes">
+              <legend class="sr-only">Redaction mode</legend>
+              <label><input type="radio" name="mode" value="full" checked /> Full mask</label>
+              <label><input type="radio" name="mode" value="partial" /> Partial mask</label>
+              <label><input type="radio" name="mode" value="pseudo" /> Pseudonymize</label>
+            </fieldset>
+            <button id="btn-download" class="primary download" type="button" aria-describedby="dl-hint" disabled>Download sanitized .txt</button>
+          </div>
+          <p id="mode-help" class="help"></p>
+          <p id="dl-hint" class="help">Add text to enable download.</p>
+        </div>
+        <div id="out-view" class="doc view" role="region" tabindex="0" aria-label="Sanitized result. Use arrow keys to move between items."></div>
+        <div id="ai-box" class="ai" hidden>
+          <button id="btn-ai" type="button">Summarize sanitized text on this device</button>
+          <span class="help">Chrome built-in AI (Gemini Nano). Runs locally; only the sanitized result is used.</span>
+          <p id="ai-out" class="ai-out" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <nav class="review" aria-label="Review">
+      <button id="btn-prev" type="button" disabled>◀ Previous</button>
+      <button id="btn-next" type="button" disabled>Next ▶</button>
+      <p id="readout" class="readout"></p>
+    </nav>
+    <div id="live" class="sr-only" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
