@@ -17,9 +17,6 @@ const NUMERIC: ReadonlySet<EntityType> = new Set(['PHONE', 'AADHAAR', 'CARD']);
 /** Characters a match span may contain (CSV safety invariant 1). */
 export const SPAN_CHARS = /^[A-Za-z0-9 \-.@:+%_]+$/;
 
-const overlaps = (a: { start: number; end: number }, b: { start: number; end: number }) =>
-  a.start < b.end && b.start < a.end;
-
 export function resolve(candidates: Candidate[]): Detection {
   const rejected: Rejected[] = [];
   const kept: Candidate[] = [];
@@ -32,17 +29,28 @@ export function resolve(candidates: Candidate[]): Detection {
     else kept.push(c);
   }
   // 2. Numeric candidates overlapping a rejected run are discarded.
+  //    Occupancy arrays keep this linear in text length (no O(n²) scans).
+  const textLen = candidates.reduce((n, c) => Math.max(n, c.end), 0);
+  const rejectedAt = new Uint8Array(textLen + 1);
+  for (const r of rejected) rejectedAt.fill(1, r.start, r.end);
+  const hits = (arr: Uint8Array, c: { start: number; end: number }) => {
+    for (let i = c.start; i < c.end; i++) if (arr[i]) return true;
+    return false;
+  };
   for (const c of candidates) {
     if (c.type === 'CARD') continue;
-    if (NUMERIC.has(c.type) && rejected.some((r) => overlaps(r, c))) continue;
+    if (NUMERIC.has(c.type) && hits(rejectedAt, c)) continue;
     kept.push(c);
   }
 
   // 3. Longest first, then priority; accept non-overlapping.
   kept.sort((a, b) => b.end - b.start - (a.end - a.start) || PRIORITY[a.type] - PRIORITY[b.type] || a.start - b.start);
   const accepted: Candidate[] = [];
+  const taken = new Uint8Array(textLen + 1);
   for (const c of kept) {
-    if (!accepted.some((a) => overlaps(a, c))) accepted.push(c);
+    if (hits(taken, c)) continue;
+    taken.fill(1, c.start, c.end);
+    accepted.push(c);
   }
 
   // 4. Sort by position; one character belongs to at most one match.
@@ -54,7 +62,7 @@ export function resolve(candidates: Candidate[]): Detection {
 
   // Rejected runs that ended up inside an accepted match (e.g. inside an email) are not reported.
   const visibleRejected = rejected
-    .filter((r) => !matches.some((m) => overlaps(m, r)))
+    .filter((r) => !hits(taken, r))
     .sort((a, b) => a.start - b.start);
 
   return { matches, rejected: visibleRejected };

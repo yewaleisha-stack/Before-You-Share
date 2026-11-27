@@ -75,6 +75,11 @@ Browser acceptance checks (`scripts/e2e.mjs`, Playwright/Chromium) were run agai
 
 They cover T1, T2, T16–T19, T21–T26, plus a 375 px layout check.
 
+## Measured
+
+- **1 MB input**, from paste to the review render in headless Chromium: about **0.3 s** for a realistic log (1,950 matches) and about **2.4 s** for a worst case with a match every ~25 characters (40,539 matches). The detection engine alone takes ~0.17 s; the rest is DOM rendering. The 1 MB limit stays.
+- **Contrast:** each entity's strong color on white is 5.2–7.1:1, and body text on a tint is ≥ 13.7:1 (WCAG AA needs 4.5:1).
+
 ## Licences
 
 The IBM Plex fonts are licensed under the SIL Open Font License 1.1 and served by Google Fonts.

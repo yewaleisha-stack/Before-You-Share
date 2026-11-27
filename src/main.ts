@@ -312,6 +312,7 @@ function flushEdit() {
   runDetection();
 }
 els.editor.addEventListener('input', () => {
+  els.edit.disabled = els.editor.value.length === 0;
   window.clearTimeout(timer);
   timer = window.setTimeout(flushEdit, els.editor.value.length > 100_000 ? 300 : 150);
 });

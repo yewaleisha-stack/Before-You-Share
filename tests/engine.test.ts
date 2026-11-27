@@ -144,11 +144,13 @@ describe('T13 full mask', () => {
     const d = detect(SAMPLE);
     const r = redact(SAMPLE, d.matches, 'full', d.rejected);
     expect(r.output.split('[REDACTED]').length - 1).toBe(14);
-    const outside = SAMPLE.replace(/x/g, 'x');
-    // rebuild the source from segments: text outside matches is identical
-    let rebuilt = '';
-    for (const s of r.segments) rebuilt += s.kind === 'match' ? SAMPLE.slice(s.src[0], s.src[1]) : outside.slice(s.src[0], s.src[1]);
-    expect(rebuilt).toBe(SAMPLE);
+    // text outside matches is identical: walk segments through the output
+    let pos = 0;
+    for (const s of r.segments) {
+      if (s.kind === 'match') { expect(r.output.slice(pos, pos + s.out.length)).toBe('[REDACTED]'); pos += s.out.length; }
+      else { const t = SAMPLE.slice(s.src[0], s.src[1]); expect(r.output.slice(pos, pos + t.length)).toBe(t); pos += t.length; }
+    }
+    expect(pos).toBe(r.output.length);
     expect(r.output).toContain('4111 1111 1111 1112');
   });
 });
