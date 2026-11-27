@@ -257,8 +257,8 @@ function loadDocument(text: string, name: string | null, opts: { ext?: 'txt' | '
   state.error = null;
   state.editing = text.length === 0;
   runDetection();
-  if (state.editing) els.editor.focus();
-  else els.srcView.focus();
+  if (state.editing) els.editor.focus({ preventScroll: true });
+  else els.srcView.focus({ preventScroll: true });
 }
 
 els.sample.addEventListener('click', () => loadDocument(SAMPLE, SAMPLE_NAME));
@@ -354,8 +354,10 @@ function watchNetwork() {
   if (!out || !seal || typeof PerformanceObserver === 'undefined') return;
   const since = performance.now();
   let n = 0;
+  const mirrors = document.querySelectorAll<HTMLElement>('[data-net-mirror]');
   const show = () => {
     out.textContent = `${n} request${n === 1 ? '' : 's'} since load`;
+    mirrors.forEach((m) => (m.textContent = String(n)));
     seal.classList.toggle('seal-warn', n > 0);
   };
   try {
@@ -376,5 +378,12 @@ if (document.readyState === 'complete') watchNetwork();
 else window.addEventListener('load', watchNetwork, { once: true });
 
 initOnDeviceSummary(() => (state.text ? state.result.output : ''));
+// Landing-page calls to action: load the sample, then let the anchor scroll to the tool.
+for (const a of document.querySelectorAll<HTMLElement>('[data-action="sample"]')) {
+  a.addEventListener('click', () => {
+    loadDocument(SAMPLE, SAMPLE_NAME);
+  });
+}
+
 render();
-els.editor.focus();
+els.editor.focus({ preventScroll: true });

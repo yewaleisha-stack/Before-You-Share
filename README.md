@@ -12,6 +12,10 @@ Built for **PromptWars × NIAT Pune** (Google for Developers · H2S).
 - **Shows what it left alone.** A card-shaped number that fails the Luhn check is marked "NOT CARD" and reported in the status line.
 - **CSV-safe.** Replacements are made in the raw text, so headers, quoting, CRLF line endings, leading zeros and a BOM all come through unchanged.
 
+## Page layout
+
+A calm, soft-UI landing page: navigation, a hero, the redaction tool (the hero's working picture), a feature showcase, three steps, a privacy-proof section and a closing call to action. The proof section uses verifiable facts (a live request counter, the CSP, test counts, offline use) instead of testimonials, because the project has no real user quotes.
+
 ## Run it
 
 ```bash
@@ -28,7 +32,7 @@ npm run test:e2e   # browser acceptance checks (needs: npx playwright install ch
 |---|---|---|
 | **Firebase Hosting** (`firebase.json`) | Static hosting with CSP and security headers | Serves files only |
 | **Google Cloud Run** (`Dockerfile`, `nginx.conf`) | Alternative container deploy: `npm run deploy:cloudrun` | Serves files only |
-| **Google Fonts** | Instrument Sans / JetBrains Mono | Font files only; falls back to system fonts offline |
+| **Google Fonts** | Figtree / JetBrains Mono | Font files only; falls back to system fonts offline |
 | **Chrome built-in AI: Summarizer API (Gemini Nano)** | Optional "Summarize sanitized text on this device" | Runs on-device. Receives only the *sanitized* result. Hidden when the browser doesn't support it |
 | **GitHub Action → Firebase Hosting** | CI: test, build, deploy | — |
 
@@ -84,4 +88,4 @@ They cover T1, T2, T16–T19, T21–T26, plus a 375 px layout check.
 
 ## Licences
 
-Instrument Sans and JetBrains Mono are licensed under the SIL Open Font License 1.1 and served by Google Fonts.
+Figtree and JetBrains Mono are licensed under the SIL Open Font License 1.1 and served by Google Fonts.
